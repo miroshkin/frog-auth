@@ -1,20 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Treehouse.FitnessFrog.Shared.Models;
 
 namespace Treehouse.FitnessFrog.Shared.Data
 {
-    public class Context : DbContext
+    public class Context : IdentityDbContext<User>
     {
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Entry> Entries { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        public Context() : base("Context")
+        {
+
+        }
+
+    protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             // Removing the pluralizing table name convention 
             // so our table names will use our entity class singular names.
